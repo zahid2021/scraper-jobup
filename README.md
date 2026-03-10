@@ -1,24 +1,63 @@
-# Scraper - jobup
+# Scraper - JobUp
 
-This scraper extracts job listings from jobup website and saves them directly to a MySQL database.
+## Overview
+Scrapes job listings from JobUp.ch Swiss job portal.
+
+- **Website:** https://www.jobup.ch
+- **Industry:** Job Portal
+
+## Jobs Scraped
+- Various positions across multiple industries
 
 ## Features
-- Scrapes job listings from website
+- Scrapes job listings directly from company website
 - Parses structured data using LLM (Groq API)
 - Saves directly to MySQL database
 - Skips already processed jobs (no duplicates)
 - Auto-retry on API quota limits
+- Uses UUID for unique job identification
+
+## Tech Stack
+- Python 3
+- Scrapy / Requests
+- MySQL
+- Groq API (LLM)
+- pypdf (for PDF extraction)
+
+## Project Structure
+- main.py - Main scraper script
+- model.py - Database models and helper functions
+- utils.py - LLM utility functions
+- requirements.txt - Python dependencies
+- .env - Environment variables (not included)
 
 ## Setup
-1. Install dependencies:
+
+1. Clone the repository:
+   git clone https://github.com/zahid2021/scraper-jobup.git
+
+2. Install dependencies:
    pip install -r requirements.txt
 
-2. Create .env file:
+3. Create .env file:
    DB_HOST=localhost
    DB_USER=your_db_user
    DB_PASSWORD=your_db_password
    DB_DATABASE=job_portal_db
    GROQ_API_KEY=your_groq_api_key
 
-3. Run:
+4. Run the scraper:
    python3 main.py
+
+## How It Works
+1. Connects to MySQL database
+2. Loads already processed job links to avoid duplicates
+3. Scrapes job listings from website
+4. Extracts job descriptions
+5. Parses structured data using LLM
+6. Saves to database
+
+## Notes
+- .env file is required but not included for security reasons
+- Script automatically stops if API quota is exceeded
+- Duplicate jobs are skipped automatically
